@@ -15,9 +15,12 @@
 #define NEGMULT2 7
 
 enum OPTIONS {OPT_ODD_VALUES, OPT_ODD_INDEX, OPT_POSITIVE_VALUES, OPT_NEGATIVE_VALUES, ALL};
+enum STATS {};
 int arr[ARY_SIZE];
 int i, j; // i for index; j for printed items
-int nPositive;
+int nPositive = 0;
+int sumAll = 0;
+int min, max;
 
 int printfArr(char message[charSize], enum OPTIONS opt)
 {
@@ -70,6 +73,10 @@ int printfArr(char message[charSize], enum OPTIONS opt)
     return 1;
 }
 
+int getStats(enum OPTIONS opt) {
+
+}
+
 
 int main(void) 
 {
@@ -85,7 +92,9 @@ int main(void)
     printfArr("\nPrinting odd values:", OPT_ODD_VALUES );
     printfArr("\nPrinting odd indexes:", OPT_ODD_INDEX );
 
-    printf("\n%d   ", nPositive);
+    printf("\nNumber of even numbers: %d", nPositive);
+    printf("\nSum of Numbers: %d", sumAll);
+    printf("\nSmallest Value in array: %d", min);
 
     printfArr("\nPrinting positive values:", OPT_POSITIVE_VALUES);
     printfArr("\nPrinting negative values", OPT_NEGATIVE_VALUES);
