@@ -15,17 +15,17 @@
 #define NEGMULT2 7
 
 enum OPTIONS {OPT_ODD_VALUES, OPT_ODD_INDEX, OPT_POSITIVE_VALUES, OPT_NEGATIVE_VALUES, ALL};
-enum STATS {};
 int arr[ARY_SIZE];
 int i, j; // i for index; j for printed items
-int nPositive = 0;
+int nEven = 0;
 int sumAll = 0;
-int min, max;
+int min, max; // min max values
+int minLoc, maxLoc; // location in the array
 
 int printfArr(char message[charSize], enum OPTIONS opt)
 {
     j = 0; // Track printed items
-    printf("%s\n", message); // Ensure the title appears correctly
+    printf("\n%s\n", message); // Ensure the title appears correctly
 
     for (i = 0; i < ARY_SIZE; ++i) 
     {
@@ -43,7 +43,6 @@ int printfArr(char message[charSize], enum OPTIONS opt)
 
             case OPT_POSITIVE_VALUES:
                 shouldPrint = (arr[i] >= 0);
-                nPositive++;
                 break;
 
             case OPT_NEGATIVE_VALUES:
@@ -73,7 +72,32 @@ int printfArr(char message[charSize], enum OPTIONS opt)
     return 1;
 }
 
-int getStats(enum OPTIONS opt) {
+int getStats() {
+    max = arr[0];
+    maxLoc = 0;
+    min = arr[0];
+    minLoc = 0;
+    sumAll = 0;
+    
+    for ( i = 0; i < ARY_SIZE; ++i) {
+        sumAll += arr[i];
+        if (arr[i] % 2 == 0) {
+            nEven++;
+        }
+        if (arr[i] > max ){ // max
+            max = arr[i];
+            maxLoc = i + 1;
+        }
+        if(arr[i] < min) { // min
+            min = arr[i];
+            minLoc = i + 1;
+        }
+    }
+    printf("\nNumber of even numbers: %d", nEven);
+    printf("\nSum of Numbers: %d", sumAll);
+    printf("\nBiggest value in array: %d at: %d", max, maxLoc);
+    printf("\nSmallest Value in array: %d at: %d\n", min, minLoc);
+    return 1;
 
 }
 
@@ -88,16 +112,14 @@ int main(void)
             arr[i] *= -1;
         }
     }
-    printfArr("\nPrinting the whole array:", ALL);
-    printfArr("\nPrinting odd values:", OPT_ODD_VALUES );
-    printfArr("\nPrinting odd indexes:", OPT_ODD_INDEX );
+    printfArr("Printing the whole array:", ALL);
+    printfArr("Printing odd values:", OPT_ODD_VALUES );
+    printfArr("Printing odd indexes:", OPT_ODD_INDEX );
 
-    printf("\nNumber of even numbers: %d", nPositive);
-    printf("\nSum of Numbers: %d", sumAll);
-    printf("\nSmallest Value in array: %d", min);
+    getStats();
 
-    printfArr("\nPrinting positive values:", OPT_POSITIVE_VALUES);
-    printfArr("\nPrinting negative values", OPT_NEGATIVE_VALUES);
+    printfArr("Printing positive values:", OPT_POSITIVE_VALUES);
+    printfArr("Printing negative values", OPT_NEGATIVE_VALUES);
 
 }
 /*
